@@ -14,9 +14,6 @@
         </div>
         <hr />
         <div>
-            <router-link to="/admin/products" tag="button" class="btn btn-outline-secondary">Artikel verwalten</router-link>
-        </div>
-        <div class="mt-3">
             <router-link to="/admin/gallery" tag="button" class="btn btn-outline-secondary">Galerie verwalten</router-link>
         </div>
         <div class="mt-3">
