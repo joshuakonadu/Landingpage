@@ -1,6 +1,7 @@
 <template>
     <div id="landing-page">
         <Hero></Hero>
+        <Hinweis></Hinweis>
         <WhyChooseUs class="pt-5 vh-small d-flex align-items-center"></WhyChooseUs>
         <AboutUs class="vh-small d-flex align-items-center"></AboutUs>
         <Partners class="pt-5 pb-3 vh-small d-flex align-items-center"></Partners>
@@ -12,6 +13,7 @@
 
 <script lang="ts">
 import Hero from "../components/landing-page/Hero.vue";
+import Hinweis from "../components/landing-page/Hinweis.vue";
 import WhyChooseUs from "../components/landing-page/WhyChooseUs.vue";
 import AboutUs from "../components/landing-page/AboutUs.vue";
 import Partners from "../components/landing-page/Partners.vue";
@@ -29,6 +31,7 @@ export default {
         Gallery,
         ContactFormular,
         Announcement,
+        Hinweis,
     },
 };
 </script>
