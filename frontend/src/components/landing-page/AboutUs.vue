@@ -3,7 +3,7 @@
         <div class="content">
         <h1>Über mich</h1>
         <div class="about-sec">
-            <img :src="`data:image/${aboutUs.image.format};base64, ${aboutUs.image.imageB64}`" alt="name" />
+            <img class="height" :src="`data:image/${aboutUs.image.format};base64, ${aboutUs.image.imageB64}`" alt="name" />
             <div class="text-sec">
                 <h4>{{ aboutUs.title }}</h4>
                 <p>{{ aboutUs.description }}</p>
@@ -53,9 +53,10 @@ export default {
     margin: 30px;
 
     img {
-        max-width: 500px;
+        width: 500px;
         height: auto;
         object-fit: cover;
+        max-height: 400px;
 
         @media only screen and (max-width: 600px) {
             max-width: 100%;

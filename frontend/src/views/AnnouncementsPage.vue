@@ -1,6 +1,6 @@
 <template>
     <div id="wrapper">
-        Aktuelles
+        Aktuelles (noch nicht verwaltbar)
     </div>
 </template>
 

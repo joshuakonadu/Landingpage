@@ -1,9 +1,9 @@
 <template>
     <div id="announcement" v-if="!error">
         <div class="content">
-        <h1>Aktuelles</h1>
-        <div class="content2">
-            <div class="text-content">
+        <h1>Aktuelles (Noch nicht verwaltbar)</h1>
+        <div class="content2 row">
+            <div class="text-content col-12 col-md-6">
                 <h3>Annoucement Name</h3>
                 <p>
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id aliquid perferendis, reiciendis aut ad ducimus, vitae at porro facilis
@@ -11,7 +11,7 @@
                 </p>
                 <a href="#">More...</a>
             </div>
-            <img src="https://dummyimage.com/800x500/e35454/ed8ebe" alt="test" />
+            <img class="col-12 col-md-6" src="https://dummyimage.com/800x500/e35454/ed8ebe" alt="test" />
         </div>
     </div>
     </div>
@@ -33,8 +33,6 @@ export default {
 .content2 {
     width: 80%;
     margin: 20px auto;
-    display: flex;
-    flex-direction: row;
 
     .text-content {
         margin-right: 5vw;

@@ -70,12 +70,16 @@ export default {
                     description: this.description,
                 })
                 .then(() => {
-                    console.log("Success aboutus");
-                    // show snackbar or something (we have to decide!!!)
+                    this.$toast.open({
+                        message: "Erfolgreich",
+                        type: "success",
+                    });
                 })
                 .catch(() => {
-                    console.log("Failure aboutus");
-                    // show snackbar or something (we have to decide!!!)
+                   this.$toast.open({
+                        message: "Fehlgeschlagen",
+                        type: "error",
+                    });
                 });
         },
     },

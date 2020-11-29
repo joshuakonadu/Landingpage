@@ -1,14 +1,14 @@
 <template>
-    <div id="gallery-slider" v-if="loadFinish">
+    <div id="gallery-slider" v-if="gallery.length >= 1">
         <agile  v-if="slides.length >= 5" @after-change="(e) => (currentSlide = e.currentSlide)" class="main" ref="main" :options="options1" :as-nav-for="asNavFor1">
             <div class="slide" v-for="(slide, index) in slides" :key="index" :class="`slide--${index}`">
-                <img :src="slide" :alt="slide" />
+                <img class="mt-3" :src="slide" :alt="slide" />
             </div>
             <template slot="caption">{{ gallery[currentSlide].title }}</template>
         </agile>
         <agile  v-if="slides.length < 5" @after-change="(e) => (currentSlide = e.currentSlide)" class="main" ref="main" :options="options3" :as-nav-for="asNavFor1">
             <div class="slide" v-for="(slide, index) in slides" :key="index" :class="`slide--${index}`">
-                <img :src="slide" :alt="slide" />
+                <img class="mt-3" :src="slide" :alt="slide" />
             </div>
             <template slot="caption">{{ gallery[currentSlide].title }}</template>
         </agile>
@@ -20,14 +20,17 @@
                 :class="`slide--${index}`"
                 @click="$refs.thumbnails.goTo(index), $refs.main.goTo(index)"
             >
-                <img :src="slide" />
+                <img class="mt-3" :src="slide" />
             </div>
             <template slot="prevButton"><i class="fas fa-chevron-left"></i></template>
             <template slot="nextButton"><i class="fas fa-chevron-right"></i></template>
         </agile>
     </div>
-    <div class="loading-wrapper" v-else>
+    <div class="loading-wrapper" v-else-if="!loadFinish">
         <loading-spinner size="100px"></loading-spinner>
+    </div>
+    <div v-else class="text-white text-center">
+        <h3>Keine Bilder zurzeit (In Verwaltung können Bilder einfügt werden)</h3>
     </div>
 </template>
 
@@ -89,15 +92,21 @@ export default {
         galleryService
             .getGalleryImages()
             .then((response) => {
+                this.loadFinish = true;
+                
+                if(response.data.length >= 1){
+                    console.log("heyyy")
                 this.gallery = response.data;
                 for (let i = 0; i < this.gallery.length; i++) {
                     this.slides.push(`${BackendConfig.baseURL}${BackendConfig.images}/${this.gallery[i].imageUri}`);
                 }
-                this.loadFinish = true;
+                }
+                this.$forceUpdate()
             })
             .catch((err) => {
                 console.log({ err });
                 this.error = true;
+                this.loadFinish = true;
             });
     },
     mounted() {
