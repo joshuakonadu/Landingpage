@@ -5,7 +5,7 @@
         <agile @after-change="(e) => (currentSlide = e.currentSlide)" :options="myOptions" :fade="true" :swipeDistance="60">
             <img class="image" v-for="i in range" :key="i" :src="`${imageBaseUrl}/${gallery[range - i].imageUri}`" alt="name" />
             <template slot="caption">{{ gallery[range - 1 - currentSlide].title }}
-                <a id="more"><router-link :class="{ active: currentPath == '/galerie' }" to="/galerie">more...</router-link></a>
+                <!-- <a id="more"><router-link :class="{ active: currentPath == '/galerie' }" to="/galerie">more...</router-link></a> -->
             </template>
             <template slot="prevButton"><i class="fas fa-chevron-left"></i></template>
             <template slot="nextButton"><i class="fas fa-chevron-right"></i></template>
