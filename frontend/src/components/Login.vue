@@ -1,5 +1,5 @@
 <template>
-    <div class="container d-flex justify-content-center align-items-center py-3 mt-5">
+    <div class="container d-flex justify-content-center align-items-center py-3 mt-5 vh-90">
         <div class="row">
             <div class="col-login mx-auto">
                 <form class="card" @submit="onSubmit">
@@ -13,6 +13,8 @@
                         </div>
                         <div class="form-group"></div>
                         <button class="btn btn-primary">Anmelden</button>
+                        <br>
+                        <small class="mt-3">Das Passwort lautet "abcdefg"</small>
                     </div>
                 </form>
             </div>
@@ -52,5 +54,8 @@ label{
 }
 .col-login {
     max-width: 24rem;
+}
+.vh-90{
+    min-height: 60vh;
 }
 </style>

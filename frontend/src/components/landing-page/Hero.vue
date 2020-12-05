@@ -4,8 +4,8 @@
             <h1>HEADLINE</h1>
             <h3>SUBHEADLINE</h3>
             <div class="buttons">
-                <!-- <button id="shop-btn">Zum Shop</button> -->
-                <a href="#contact-formular" id="contact-btn">Kontakt aufnehmen</a>
+                <button @click="toLogin" id="shop-btn">Zur Verwaltung</button>
+                <button @click="scrollDown" id="contact-btn">Kontakt aufnehmen</button>
             </div>
         </div>
     </div>
@@ -14,14 +14,22 @@
 <script lang="ts">
 export default {
     name: "Hero",
+    methods:{
+        scrollDown(){
+            location.href="#contact-form"
+        },
+        toLogin(){
+            this.$router.push({ path: 'login' })
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 #hero {
     width: 100%;
-    height: calc(100vh - #{$navbarHeight});
-    background: url("https://images.pexels.com/photos/258642/pexels-photo-258642.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+    height: calc(80vh - #{$navbarHeight});
+    background: url("https://cdn.pixabay.com/photo/2018/12/01/09/53/network-3849202_960_720.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -38,7 +46,7 @@ h3 {
 
 .content {
     padding-top: 10vh;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -57,17 +65,8 @@ button {
     border-radius: 6px;
     margin: 1vh 0;
     padding: 15px 30px;
-    background: $red;
     color: $grey;
-}
-
-a{
-   border: none;
-    border-radius: 6px;
-    margin: 1vh 0;
-    padding: 15px 30px;
-    background: $red;
-    color: $grey; 
+    background: none;
 }
 
 #shop-btn {
@@ -86,6 +85,7 @@ a{
     width: 250px;
     font-size: 1.1em;
     font-weight: 400;
+    border: 2px solid $red;
 }
 
 @media only screen and (max-width: 500px) {

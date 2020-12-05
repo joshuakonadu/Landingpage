@@ -30,6 +30,7 @@ const routes: Array<RouteConfig> = [
                 component: GalleryPage,
                 meta: { title: "Galerie" },
             },
+            { path: "/shop", component: ShopPage, meta: { title: "Shop" } },
             {
                 path: "/aktuelles",
                 component: AnnouncementsPage,

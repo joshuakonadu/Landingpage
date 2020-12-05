@@ -1,19 +1,17 @@
 <template>
     <div id="landing-page">
         <Hero></Hero>
-        <Hinweis></Hinweis>
         <WhyChooseUs class="pt-5 vh-small d-flex align-items-center"></WhyChooseUs>
         <AboutUs class="vh-small d-flex align-items-center"></AboutUs>
-        <Partners class="pt-5 pb-3 vh-small d-flex align-items-center"></Partners>
+        <Partners class="pt-5 pb-3 vh-hall d-flex align-items-center"></Partners>
         <Announcement class="vh-small d-flex align-items-center"></Announcement>
         <Gallery class="pt-5 vh-big d-flex align-items-center"></Gallery>
-        <ContactFormular class="vh-big d-flex align-items-center"></ContactFormular>
+        <ContactFormular id="contact-form" class="vh-big d-flex align-items-center"></ContactFormular>
     </div>
 </template>
 
 <script lang="ts">
 import Hero from "../components/landing-page/Hero.vue";
-import Hinweis from "../components/landing-page/Hinweis.vue";
 import WhyChooseUs from "../components/landing-page/WhyChooseUs.vue";
 import AboutUs from "../components/landing-page/AboutUs.vue";
 import Partners from "../components/landing-page/Partners.vue";
@@ -31,7 +29,6 @@ export default {
         Gallery,
         ContactFormular,
         Announcement,
-        Hinweis,
     },
 };
 </script>
@@ -59,24 +56,20 @@ h1 {
     color: $white;
 }
 .vh-small {
-    min-height: 100vh;
+    min-height: 60vh;
 }
 .vh-big {
     min-height: 100vh;
 }
+.vh-hall {
+    min-height: 50vh;
+}
 @media (min-width: 1600px) {
     .vh-small {
-        min-height: 80vh;
+        min-height: 70vh;
     }
     .vh-big {
         min-height: 90vh;
     }
-}
-</style>
-
-<style>
-.content {
-    width: 80%;
-    margin: auto;
 }
 </style>

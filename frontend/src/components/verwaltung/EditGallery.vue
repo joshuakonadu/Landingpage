@@ -104,7 +104,6 @@ export default {
                     index: index,
                 })
                 .then(() => {
-                    this.resetValues()
                     this.$toast.open({
                         message: "Erfolgreich",
                         type: "success",

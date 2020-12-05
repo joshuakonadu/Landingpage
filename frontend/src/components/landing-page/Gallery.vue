@@ -1,17 +1,17 @@
 <template>
     <div id="gallery-slider" v-if="gallery.length && range">
-        <div class="content">
-        <h1>Gallerie</h1>
-        <agile @after-change="(e) => (currentSlide = e.currentSlide)" :options="myOptions" :fade="true" :swipeDistance="60">
-            <img class="image" v-for="i in range" :key="i" :src="`${imageBaseUrl}/${gallery[range - i].imageUri}`" alt="name" />
-            <template slot="caption">{{ gallery[range - 1 - currentSlide].title }}
-                <!-- <a id="more"><router-link :class="{ active: currentPath == '/galerie' }" to="/galerie">more...</router-link></a> -->
-            </template>
-            <template slot="prevButton"><i class="fas fa-chevron-left"></i></template>
-            <template slot="nextButton"><i class="fas fa-chevron-right"></i></template>
-        </agile>
-        
-       </div>
+        <div class="landing-content">
+            <h1 class="section-headline">Gallerie</h1>
+            <agile @after-change="e => (currentSlide = e.currentSlide)" :options="myOptions" :fade="true" :swipeDistance="60">
+                <img class="image" v-for="i in range" :key="i" :src="`${imageBaseUrl}/${gallery[range - i].imageUri}`" alt="name" />
+                <template slot="caption"
+                    >{{ gallery[range - 1 - currentSlide].title }}
+                    <router-link to="/galerie">Mehr...</router-link>
+                </template>
+                <template slot="prevButton"><i class="fas fa-chevron-left"></i></template>
+                <template slot="nextButton"><i class="fas fa-chevron-right"></i></template>
+            </agile>
+        </div>
     </div>
 </template>
 
@@ -58,11 +58,11 @@ export default {
     created() {
         galleryService
             .getGalleryImagesLimit()
-            .then((response) => {
+            .then(response => {
                 this.gallery = response.data;
                 this.range = this.gallery.length;
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log({ err });
                 this.error = true;
             });
@@ -71,7 +71,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 #gallery-slider {
-    background-color: $black;
+    background-color: $galleryBackground;
     ::v-deep {
         .agile {
             margin: 30px;
@@ -167,8 +167,8 @@ export default {
     color: white;
 }
 
-#more{
-    color: white;
+a {
     font-size: 20px;
+    float: right;
 }
 </style>

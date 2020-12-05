@@ -1,15 +1,15 @@
 <template>
     <div id="about-us" v-if="aboutUs && aboutUs.image">
-        <div class="content">
-        <h1>Über mich</h1>
-        <div class="about-sec">
-            <img class="height" :src="`data:image/${aboutUs.image.format};base64, ${aboutUs.image.imageB64}`" alt="name" />
-            <div class="text-sec">
-                <h4>{{ aboutUs.title }}</h4>
-                <p>{{ aboutUs.description }}</p>
+        <div class="landing-content">
+            <h1 class="section-headline mt-5">Über mich</h1>
+            <div class="about-sec">
+                <img :src="`data:image/${aboutUs.image.format};base64, ${aboutUs.image.imageB64}`" alt="name" />
+                <div class="text-sec">
+                    <h4>{{ aboutUs.title }}</h4>
+                    <p>{{ aboutUs.description }}</p>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </template>
 
@@ -27,20 +27,14 @@ export default {
     created() {
         aboutService
             .getAbout()
-            .then((response) => {
-                this.aboutUs = response.data; // to find out what you need try a console.log(response.data) and look how the field you need is named :)
+            .then(response => {
+                this.aboutUs = response.data;
             })
-            .catch((err) => {
+            .catch(err => {
                 console.log({ err });
                 this.error = true;
             });
     },
-    computed: {},
-    /*methods: {
-        openAboutView() {
-                                                        //open new AboutUs-page per click on "more"
-        },
-    },*/
 };
 </script>
 
@@ -53,10 +47,9 @@ export default {
     margin: 30px;
 
     img {
-        width: 500px;
+        max-width: 500px;
         height: auto;
         object-fit: cover;
-        max-height: 400px;
 
         @media only screen and (max-width: 600px) {
             max-width: 100%;
@@ -79,7 +72,7 @@ export default {
         }
     }
 }
-#about-us{
-    background-color: #D3D4D9;
+#about-us {
+    background-color: $aboutBackground;
 }
 </style>

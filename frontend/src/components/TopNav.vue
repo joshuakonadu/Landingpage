@@ -1,29 +1,35 @@
 <template>
     <div>
         <nav>
-            <input type="checkbox" id="check" />
+            <input type="checkbox" id="check" ref="checkbox" />
             <label for="check" class="menu-btn">
                 <i class="fas fa-bars"></i>
             </label>
             <router-link to="/">
-                <label class="logo">logo</label>
+                <label class="logo">Logo</label>
             </router-link>
             <ul>
                 <!-- maybe extract the routes from a config? -->
-                <li><router-link :class="{ active: currentPath == '/' }" to="/">Home</router-link></li>
-                <li><router-link :class="{ active: currentPath == '/aktuelles' }" to="/aktuelles">Aktuelles</router-link></li>
-                <li><router-link :class="{ active: currentPath == '/galerie' }" to="/galerie">Galerie</router-link></li>
+                <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath == '/' }" to="/">Home</router-link></li>
+                <!-- <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath == '/shop' }" to="/shop">Shop</router-link></li> -->
+                <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath == '/aktuelles' }" to="/aktuelles">Aktuelles</router-link></li>
+                <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath == '/galerie' }" to="/galerie">Galerie</router-link></li>
             </ul>
         </nav>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
     name: "TopNav",
     computed: {
         currentPath() {
             return this.$route.path;
+        },
+    },
+    methods: {
+        collapseNavbar() {
+            (this.$refs["checkbox"] as HTMLInputElement).checked = false;
         },
     },
 };
@@ -49,6 +55,7 @@ nav {
     }
 
     ul {
+        z-index: 10;
         margin-left: auto;
         display: flex;
         width: 100%;

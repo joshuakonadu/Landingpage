@@ -18,9 +18,12 @@ export default {
                 })
         },
         getProducts({ commit }) {
-            productService.getProducts()
+            return productService.getProducts()
                 .then((products) => {
                     commit('getProductsSuccess', products.data)
+                })
+                .catch(err => {
+                    throw new Error(err)
                 })
         }
 

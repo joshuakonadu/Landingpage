@@ -1,18 +1,32 @@
 <template>
-    <div id="gallery-slider" v-if="gallery.length >= 1">
-        <agile  v-if="slides.length >= 5" @after-change="(e) => (currentSlide = e.currentSlide)" class="main" ref="main" :options="options1" :as-nav-for="asNavFor1">
+    <div id="gallery-slider" class="vh-100 mbC" v-if="loadFinish && slides.length > 0">
+        <agile
+            v-if="slides.length >= 5"
+            @after-change="e => (currentSlide = e.currentSlide)"
+            class="main"
+            ref="main"
+            :options="options1"
+            :as-nav-for="asNavFor1"
+        >
             <div class="slide" v-for="(slide, index) in slides" :key="index" :class="`slide--${index}`">
-                <img class="mt-3" :src="slide" :alt="slide" />
+                <img :src="slide" :alt="slide" />
             </div>
             <template slot="caption">{{ gallery[currentSlide].title }}</template>
         </agile>
-        <agile  v-if="slides.length < 5" @after-change="(e) => (currentSlide = e.currentSlide)" class="main" ref="main" :options="options3" :as-nav-for="asNavFor1">
+        <agile
+            v-if="slides.length < 5"
+            @after-change="e => (currentSlide = e.currentSlide)"
+            class="main"
+            ref="main"
+            :options="options3"
+            :as-nav-for="asNavFor1"
+        >
             <div class="slide" v-for="(slide, index) in slides" :key="index" :class="`slide--${index}`">
-                <img class="mt-3" :src="slide" :alt="slide" />
+                <img :src="slide" :alt="slide" />
             </div>
             <template slot="caption">{{ gallery[currentSlide].title }}</template>
         </agile>
-        <agile  v-if="slides.length >= 5" class="thumbnails" ref="thumbnails" :options="options2" :as-nav-for="asNavFor2">
+        <agile v-if="slides.length >= 5" class="thumbnails mb-5" ref="thumbnails" :options="options2" :as-nav-for="asNavFor2">
             <div
                 class="slide slide--thumbniail"
                 v-for="(slide, index) in slides"
@@ -20,31 +34,34 @@
                 :class="`slide--${index}`"
                 @click="$refs.thumbnails.goTo(index), $refs.main.goTo(index)"
             >
-                <img class="mt-3" :src="slide" />
+                <img :src="slide" />
             </div>
             <template slot="prevButton"><i class="fas fa-chevron-left"></i></template>
             <template slot="nextButton"><i class="fas fa-chevron-right"></i></template>
         </agile>
     </div>
-    <div class="loading-wrapper" v-else-if="!loadFinish">
-        <loading-spinner size="100px"></loading-spinner>
+    <div v-else-if="!loadFinish" class="vh-100">
+        <loading-spinner></loading-spinner>
     </div>
-    <div v-else class="text-white text-center">
-        <h3>Keine Bilder zurzeit (In Verwaltung können Bilder einfügt werden)</h3>
+    <div v-else-if ="slides == 0" class="vh-100">
+        <h1 class="error-msg">Keine Bilder vorhanden, fügen sie in der Verwaltung Bilder hinzu.</h1>
+    </div>
+    <div v-else class="vh-100">
+        <h1 class="error-msg">Es ist ein Fehler aufgetreten</h1>
     </div>
 </template>
 
 <script lang="ts">
 import * as galleryService from "../services/gallery.service";
 import { VueAgile } from "vue-agile";
-import { PingPong } from "vue-loading-spinner";
+import LoadingSpinner from "../components/LoadingSpinner.vue";
 import { BackendConfig } from "../backend.config";
 
 export default {
     name: "gallery",
     components: {
         agile: VueAgile,
-        "loading-spinner": PingPong,
+        LoadingSpinner,
     },
     data() {
         return {
@@ -91,22 +108,17 @@ export default {
     created() {
         galleryService
             .getGalleryImages()
-            .then((response) => {
-                this.loadFinish = true;
-                
-                if(response.data.length >= 1){
-                    console.log("heyyy")
+            .then(response => {
                 this.gallery = response.data;
                 for (let i = 0; i < this.gallery.length; i++) {
                     this.slides.push(`${BackendConfig.baseURL}${BackendConfig.images}/${this.gallery[i].imageUri}`);
                 }
-                }
-                this.$forceUpdate()
-            })
-            .catch((err) => {
-                console.log({ err });
-                this.error = true;
                 this.loadFinish = true;
+            })
+            .catch(err => {
+                console.log({ err });
+                this.loadFinish = true;
+                this.error = true;
             });
     },
     mounted() {
@@ -116,13 +128,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.loading-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 #gallery-slider {
     ::v-deep {
         .thumbnails {
@@ -213,8 +218,15 @@ export default {
             height: 480px;
             object-fit: contain;
             width: 90%;
+            margin-top: 5rem;
             cursor: grab;
         }
     }
+}
+.vh-100{
+    min-height: 100vh;
+}
+.mbC{
+    margin-bottom: 7rem;
 }
 </style>
