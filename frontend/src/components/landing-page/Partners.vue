@@ -2,8 +2,8 @@
     <div id="partners" v-if="partners.length">
         <div class="landing-content">
             <h1 class="section-headline">Partner</h1>
-            <div v-dragscroll="true" @dragscrollstart="showFade = false" class="images" :class="{ 'fade-partners': showFade }">
-                <div v-for="partner in partners" :key="partner.id">
+            <div class="images" :class="{ 'fade-partners': showFade }">
+                <div v-for="partner in partners" :key="partner.id" data-dragscroll>
                     <img @click="openPartner(partner.uri)" :src="`data:image/${partner.image.format};base64, ${partner.image.imageB64}`" :alt="partner.title" />
                     <h4>{{ partner.title }}</h4>
                 </div>
@@ -14,13 +14,9 @@
 
 <script lang="ts">
 import * as partnerService from "../../services/partner.service";
-import { dragscroll } from "vue-dragscroll";
 
 export default {
     name: "Partners",
-    directives: {
-        dragscroll,
-    },
     data() {
         return {
             partners: [],
@@ -49,12 +45,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fade-partners {
-    @media only screen and (min-width: 600px) {
-        mask-image: linear-gradient(to right, black 70%, transparent 100%);
-    }
-}
-
 #partners {
     display: flex;
     flex-direction: column;
@@ -71,23 +61,8 @@ export default {
     flex-direction: row;
     text-align: center;
     justify-content: space-between;
-    overflow-x: scroll;
+    overflow-x: auto;
     cursor: grab;
-
-    // &::after {
-    //     content: "";
-    //     position: absolute;
-    //     z-index: 1;
-    //     bottom: 0;
-    //     left: 0;
-    //     background: red;
-    // }
-
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
 
     @media only screen and (max-width: 600px) {
         flex-direction: column;

@@ -48,7 +48,7 @@ export default {
 
     img {
         max-width: 500px;
-        height: auto;
+        max-height: 400px;
         object-fit: cover;
 
         @media only screen and (max-width: 600px) {

@@ -1,29 +1,26 @@
 <template>
     <div id="why-choose-us">
         <div class="landing-content">
-            <h1 class="section-headline">
-                Warum Uns?
-            </h1>
             <div class="reasons">
                 <div id="reason-1">
-                    <img src="https://dummyimage.com/600x400/f534f5/fff" />
-                    <h3>Reason 1</h3>
+                    <i class="icon fas fa-code" id="code-icon"></i>
+                    <h3>Genial</h3>
                     <span>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque labore a magnam, pariatur accusamus quo quisquam doloremque harum ipsam
                         officiis?
                     </span>
                 </div>
                 <div id="reason-2">
-                    <img src="https://dummyimage.com/600x400/2fb4e0/fff" />
-                    <h3>Reason 2</h3>
+                    <i class="icon fas fa-hands-helping" id="hands-icon"></i>
+                    <h3>Zuverlässig</h3>
                     <span>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque labore a magnam, pariatur accusamus quo quisquam doloremque harum ipsam
                         officiis?
                     </span>
                 </div>
                 <div id="reason-3">
-                    <img src="https://dummyimage.com/600x400/40dba5/fff" />
-                    <h3>Reason 3</h3>
+                    <i class="icon fas fa-space-shuttle" id="shuttle-icon"></i>
+                    <h3>Schnell</h3>
                     <span>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque labore a magnam, pariatur accusamus quo quisquam doloremque harum ipsam
                         officiis?
@@ -41,6 +38,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#code-icon {
+    color: $blue;
+}
+
+#hands-icon {
+    color: $red;
+}
+
+#shuttle-icon {
+    color: $grey;
+}
+
+.icon {
+    margin: auto;
+    font-size: 10rem;
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lighten($black, 2%);
+    box-shadow: 0 0 20px rgba(darken($black, 5%), 0.2);
+    margin-bottom: 1.5rem;
+}
+
 .reasons {
     display: flex;
     flex-direction: row;
@@ -51,10 +74,10 @@ export default {
         max-width: 400px;
         text-align: center;
         margin: 30px;
-        img {
-            max-width: 100%;
-            margin-bottom: 10px;
-        }
+        // img {
+        //     max-width: 100%;
+        //     margin-bottom: 10px;
+        // }
     }
 }
 #why-choose-us {

@@ -1,12 +1,12 @@
 <template>
     <div id="landing-page">
-        <Hero></Hero>
+        <Hero class="pb-5"></Hero>
         <WhyChooseUs class="pt-5 vh-small d-flex align-items-center"></WhyChooseUs>
         <AboutUs class="vh-small d-flex align-items-center"></AboutUs>
         <Partners class="pt-5 pb-3 vh-hall d-flex align-items-center"></Partners>
-        <Announcement class="vh-small d-flex align-items-center"></Announcement>
+        <Announcement class="vh-small d-flex align-items-center pt-5 pt-md-0"></Announcement>
         <Gallery class="pt-5 vh-big d-flex align-items-center"></Gallery>
-        <ContactFormular id="contact-form" class="vh-big d-flex align-items-center"></ContactFormular>
+        <ContactFormular id="contact-form" class="vh-big d-flex align-items-center pt-5 pt-md-0"></ContactFormular>
     </div>
 </template>
 
