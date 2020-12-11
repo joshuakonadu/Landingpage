@@ -3,7 +3,6 @@
         <div class="landing-content d-flex justify-content-space-between flex-wrap flex-row">
             <div class="sec-aboutus mr-3">
                 <h4 class="text-white">Über uns</h4>
-                <div class="line"></div>
                 <p class="colorG pr-5">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia rerum magnam autem provident tenetur voluptatum sapiente nesciunt odit,
                     et velit!
@@ -20,7 +19,6 @@
             </div>
             <div class="contact">
                 <h4 class="text-white">Kontakt</h4>
-                <div class="line"></div>
                 <ul class="info pl-0">
                     <li class="d-flex ">
                         <span><i class="fa fa-phone mr-3" aria-hidden="true"></i></span>
@@ -56,6 +54,15 @@ h4 {
     font-weight: 500;
     margin-bottom: 15px;
 }
+h4::after{
+    content: '';
+    margin-top: 5px;
+    display: block;
+    width: 60px;
+    height: 2px;
+    border-bottom: solid 3px $red;
+
+}
 .bgC {
     background-color: $footerColor;
 }
@@ -79,13 +86,6 @@ h4 {
     a:hover {
         background: $red;
     }
-}
-.line {
-    width: 60px;
-    height: 2px;
-    border-bottom: solid 3px $red;
-    margin-top: -10px;
-    margin-bottom: 20px;
 }
 
 .fa {
