@@ -71,9 +71,11 @@ export default {
     justify-content: space-evenly;
 
     div {
-        max-width: 400px;
+        flex: 0 0 33.333333%;
+        max-width: 300px;
         text-align: center;
-        margin: 30px;
+        box-sizing: border-box;
+        padding: 30px;
         // img {
         //     max-width: 100%;
         //     margin-bottom: 10px;

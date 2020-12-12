@@ -1,6 +1,6 @@
 <template>
     <div id="landing-page">
-        <Hero class="pb-5"></Hero>
+        <Hero class="pb-5 vh-big"></Hero>
         <WhyChooseUs class="pt-5 vh-small d-flex align-items-center"></WhyChooseUs>
         <AboutUs class="vh-small d-flex align-items-center"></AboutUs>
         <Partners class="pt-5 pb-3 vh-hall d-flex align-items-center"></Partners>

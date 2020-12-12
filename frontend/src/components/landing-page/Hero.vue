@@ -1,8 +1,8 @@
 <template>
     <div id="hero">
         <div class="content">
-            <h1>HEADLINE</h1>
-            <h3>SUBHEADLINE</h3>
+            <h1 class="text-white">HEADLINE</h1>
+            <h3 class="text-white">SUBHEADLINE</h3>
             <div class="buttons">
                 <button @click="toLogin" id="shop-btn">Zur Verwaltung</button>
                 <button @click="scrollDown" id="contact-btn">Kontakt aufnehmen</button>
