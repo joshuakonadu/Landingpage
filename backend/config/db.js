@@ -18,11 +18,11 @@ const connection = mongoose.createConnection(uri, options);
 
 // Notifications
 connection.on('connected', function () {
-    console.log('Mongoose connected to Mongo database elbdogs on Host: ' + uri);
+    console.log('Mongoose connected to Mongo database landingpage on Host: ' + uri);
 });
 
 connection.on('disconnected', function (error) {
-    console.log('Mongoose connection disconnectd on elbdogs on Host: ' + uri);
+    console.log('Mongoose connection disconnectd on landingpage on Host: ' + uri);
 });
 
 connection.on('reconnect', function (ref) {
