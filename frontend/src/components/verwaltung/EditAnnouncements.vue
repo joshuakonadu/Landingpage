@@ -36,38 +36,28 @@
             </div>
         </div>
 
-        <div v-if="announcements.length != 0" class="row pb-custom">
-            <div
-                class="card mb-3 max-height col-12 col-md-6 col-lg-4 border-0 mb-5 mt-selfTop"
-                v-for="(announcement, index) in announcements"
-                :key="announcement._id"
-            >
+        <div v-if="announcements.length != 0" class="grid-container mt-5">
+            <div class="d-flex flex-column border-0" v-for="(announcement, index) in announcements" :key="announcement._id">
                 <img
                     :src="`data:image/${announcement.image.format};base64,${announcement.image.imageB64}`"
                     class="max-height mx-auto"
                     alt="Announcement Bild"
                 />
-                <div class="card-body">
-                    <div class="col-12 d-flex justify-content-center">
-                        <h5 class="card-title">{{ announcement.title }}</h5>
+                <div>
+                    <div class="col-12 d-flex flex-column justify-content-center mt-2">
+                        <h5>{{ announcement.title }}</h5>
+                        <span class="text-muted">{{ getDate(announcement.createdAt) }}</span>
                     </div>
-                    <div class="col-12 d-flex justify-content-center">
-                        <h5 class="card-title">{{ announcement.description }}</h5>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3 col-md-4">
-                            <button
-                                @click="updateInfo(announcement.image, announcement._id, index, announcement.title, announcement.description)"
-                                class="btn btn-sm btn-outline-primary"
-                            >
-                                Bearbeiten
-                            </button>
-                        </div>
-                        <div class="col-3 col-md-4">
-                            <button @click="deleteVerify(announcement._id, index)" class="btn btn-sm btn-outline-danger">
-                                Löschen
-                            </button>
-                        </div>
+                    <div class="row justify-content-center mt-2">
+                        <button
+                            @click="updateInfo(announcement.image, announcement._id, index, announcement.title, announcement.description)"
+                            class="btn btn-sm btn-outline-primary"
+                        >
+                            Bearbeiten
+                        </button>
+                        <button @click="deleteVerify(announcement._id, index)" class="btn btn-sm btn-outline-danger ml-2">
+                            Löschen
+                        </button>
                     </div>
                 </div>
             </div>
@@ -86,6 +76,8 @@
 <script>
 import DeleteModal from "@/components/modal/DeleteModal";
 import ImageUpload from "./ImageUpload.vue";
+import * as dateService from "../../services/date.service";
+
 export default {
     components: {
         ImageUpload,
@@ -119,6 +111,9 @@ export default {
         },
     },
     methods: {
+        getDate(date) {
+            return dateService.convertISODate(date);
+        },
         deleteAnnouncement(id, index) {
             this.$store
                 .dispatch("user/deleteAnnouncement", {
@@ -220,33 +215,26 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 5vh 1vw;
+}
+
 img {
-    object-fit: scale-down;
-}
-.box {
-    padding: 0.2rem;
-    border-radius: 5px;
-    border-width: 3px;
-    border-style: dashed;
-    border-color: #989797;
-    width: 17.8rem;
-    height: 16rem;
-}
-.hoverPointer:hover {
-    cursor: pointer;
-}
-.max-height {
-    height: 300px;
+    height: 250px;
     width: 100%;
+    object-fit: cover;
+    margin: auto;
 }
-.mb-custom {
-    margin-bottom: 6rem !important;
+
+h5 {
+    height: 3rem;
+    overflow: hidden;
 }
-.pb-custom {
-    padding-bottom: 6rem !important;
-}
-.mt-selfTop {
-    margin-top: 5rem;
+.text-muted {
+    font-size: 0.8rem;
 }
 </style>

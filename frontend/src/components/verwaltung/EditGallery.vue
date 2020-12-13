@@ -10,44 +10,40 @@
                 <div class="col-md-5">
                     <div class="mb-3">
                         <label class="form-label">Überschrift</label>
-                        <input type="text" v-model="heading" class="form-control" name="heading" placeholder="Überschrift eingeben" />
+                        <input type="text" required v-model="heading" class="form-control" name="heading" placeholder="Überschrift eingeben" />
                     </div>
                 </div>
-                <div class="col-md-5" :class="{'align-self-center' : mode !== 'add'}">
+                <div class="col-md-5 mt-3" :class="{ 'align-self-center': mode !== 'add' }">
                     <div v-if="mode == 'add'">
                         <image-upload v-model="image"></image-upload>
                     </div>
                     <button v-if="mode == 'add'" class="btn btn-outline-success mt-5" @click="createImage">
                         Erstellen
                     </button>
-                    <button v-else class="btn btn-outline-success"  @click="updateImage">
+                    <button v-else class="btn btn-outline-success" @click="updateImage">
                         Speichern
                     </button>
-                    <button class="ml-4 btn btn-outline-danger" :class="{'mt-5' : mode == 'add'}" @click="resetValues">
+                    <button class="ml-4 btn btn-outline-danger" :class="{ 'mt-5': mode == 'add' }" @click="resetValues">
                         Abbrechen
                     </button>
                 </div>
             </div>
         </div>
 
-        <div v-if="images.length != 0" class="row pb-custom">
-            <div class="card mb-3 max-height col-12 col-md-6 col-lg-4 border-0 mb-5 mt-selfTop" v-for="(image, index) in images" :key="image._id">
-                <img :src="`${imageBaseUrl}/${image.imageUri}`" class="max-height" alt="Gallerie Bild" />
+        <div v-if="images.length != 0" class="row pb-custom justify-content-center justify-content-md-start">
+            <div class="m-3" v-for="(image, index) in images" :key="image._id">
+                <img :src="`${imageBaseUrl}/${image.imageUri}`" alt="Galerie Bild" />
                 <div class="card-body">
                     <div class="col-12 d-flex justify-content-center">
                         <h5 class="card-title">{{ image.title }}</h5>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-3 col-md-4">
-                            <button @click="updateInfo(image._id, index, image.title)" class="btn btn-sm btn-outline-primary">
-                                Bearbeiten
-                            </button>
-                        </div>
-                        <div class="col-3 col-md-4">
-                            <button @click="deleteVerify(image._id, index)" class="btn btn-sm btn-outline-danger">
-                                Löschen
-                            </button>
-                        </div>
+                        <button @click="updateInfo(image._id, index, image.title)" class="btn btn-sm btn-outline-primary">
+                            Bearbeiten
+                        </button>
+                        <button @click="deleteVerify(image._id, index)" class="btn btn-sm btn-outline-danger ml-2">
+                            Löschen
+                        </button>
                     </div>
                 </div>
             </div>
@@ -82,7 +78,7 @@ export default {
         };
     },
     created() {
-        this.$store.dispatch("user/getGalleryImages").then((str) => {
+        this.$store.dispatch("user/getGalleryImages").then(str => {
             if (str == "empty") {
                 this.$toast.open({
                     message: "Leer",
@@ -166,7 +162,7 @@ export default {
                     });
                     this.resetValues();
                 })
-                .catch((err) => {
+                .catch(err => {
                     this.$toast.open({
                         message: "Fehlgeschlagen",
                         type: "error",
@@ -190,30 +186,19 @@ export default {
 };
 </script>
 
-<style scoped>
-.box {
-    padding: 0.2rem;
-    border-radius: 5px;
-    border-width: 3px;
-    border-style: dashed;
-    border-color: #989797;
-    width: 17.8rem;
-    height: 16rem;
+<style lang="scss" scoped>
+img {
+    height: 225px;
+    width: 400px;
+    object-fit: cover;
+    margin: auto;
+
+    @media only screen and (max-width: 500px) {
+        height: 140px;
+        width: 250px;
+    }
 }
-.hoverPointer:hover {
-    cursor: pointer;
-}
-.max-height {
-    height: 300px;
-    width: 100%;
-}
-.mb-custom {
-    margin-bottom: 6rem !important;
-}
-.pb-custom{
+.pb-custom {
     padding-bottom: 6rem !important;
-}
-.mt-selfTop{
-    margin-top: 5rem;
 }
 </style>

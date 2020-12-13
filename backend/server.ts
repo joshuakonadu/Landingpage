@@ -25,7 +25,7 @@ app.use(function (req, res) {
 const server = app.listen(port);
 
 server.timeout = 440000;
-console.log("RESTful API server elbdogs-VueBackend started on: " + port);
+console.log("RESTful API server landingpage-VueBackend started on: " + port);
 
 module.exports.app = app;
 
