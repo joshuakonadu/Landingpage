@@ -161,7 +161,13 @@ export default {
             window.scrollTo(0, 0);
         },
         createPartner() {
-            if (!this.name || !this.image || !this.uri) return;
+            if (!this.name || !this.image.imageB64 || !this.uri){
+                this.$toast.open({
+                        message: "Bitte Füllen Sie alle Felder aus.",
+                        type: "info",
+                    });
+                    return;
+                } 
 
             this.$store
                 .dispatch("user/addPartners", {
@@ -197,6 +203,7 @@ export default {
             this.partnerId = "";
             this.partnerIndex = "";
             this.showDelete = false;
+            this.$forceUpdate()
         },
     },
 };

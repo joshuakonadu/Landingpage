@@ -1,15 +1,14 @@
 <template>
-    <div id="gallery-slider" v-if="gallery.length && range">
+    <div id="gallery" v-if="gallery.length && range">
         <div class="landing-content">
-            <h1 class="section-headline">Gallerie</h1>
             <agile @after-change="e => (currentSlide = e.currentSlide)" :options="myOptions" :fade="true" :swipeDistance="60">
                 <img class="image" v-for="i in range" :key="i" :src="`${imageBaseUrl}/${gallery[range - i].imageUri}`" alt="name" />
+                <template slot="prevButton"><i class="fas fa-chevron-left"></i></template>
+                <template slot="nextButton"><i class="fas fa-chevron-right"></i></template>
                 <template slot="caption"
                     >{{ gallery[range - 1 - currentSlide].title }}
                     <router-link to="/galerie">Mehr...</router-link>
                 </template>
-                <template slot="prevButton"><i class="fas fa-chevron-left"></i></template>
-                <template slot="nextButton"><i class="fas fa-chevron-right"></i></template>
             </agile>
         </div>
     </div>
@@ -70,27 +69,23 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-#gallery-slider {
+#gallery {
     background-color: $galleryBackground;
     ::v-deep {
-        .agile {
-            margin: 30px;
-        }
-
         .agile__caption {
-            color: white;
+            color: $white;
             text-align: center;
             font-size: 2rem;
-            margin-top: 10px;
+            margin-top: 30px;
             @media only screen and (max-width: 600px) {
-                color: transparent;
+                font-size: 1rem;
             }
         }
 
         .agile__nav-button {
             background: transparent;
             border: none;
-            color: #fff;
+            color: $white;
             cursor: pointer;
             font-size: 24px;
             height: 600px;
@@ -111,7 +106,7 @@ export default {
             right: 0;
         }
         .agile__dots {
-            bottom: 10px;
+            bottom: 20px;
             left: 50%;
             position: absolute;
             -webkit-transform: translateX(-50%);
@@ -122,7 +117,7 @@ export default {
         }
         .agile__dot button {
             background-color: transparent;
-            border: 1px solid #fff;
+            border: 1px solid $white;
             border-radius: 50%;
             cursor: pointer;
             display: block;
@@ -158,7 +153,7 @@ export default {
     cursor: grab;
 
     @media only screen and (max-width: 1000px) {
-        height: auto;
+        max-height: 200px;
         max-width: 100%;
     }
 }
@@ -168,7 +163,8 @@ export default {
 }
 
 a {
-    font-size: 20px;
     float: right;
+    color: $blue;
+    text-decoration: none;
 }
 </style>

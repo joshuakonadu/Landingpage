@@ -1,5 +1,5 @@
 <template>
-    <div class="container d-flex justify-content-center align-items-center py-3 mt-5 vh-90">
+    <div class="container d-flex justify-content-center align-items-center py-3 mt-5 vhCustom">
         <div class="row">
             <div class="col-login mx-auto">
                 <form class="card" @submit="onSubmit">
@@ -13,8 +13,6 @@
                         </div>
                         <div class="form-group"></div>
                         <button class="btn btn-primary">Anmelden</button>
-                        <br>
-                        <small class="mt-3">Das Passwort lautet "abcdefg"</small>
                     </div>
                 </form>
             </div>
@@ -33,12 +31,11 @@ export default {
     methods: {
         onSubmit(evt) {
             evt.preventDefault();
-            this.$store.dispatch("AuthenticationModule/login", { password: this.password }).catch(err => {
- 
-                    this.$toast.open({
-                        message: 'Fehlgeschlagen',
-                        type: 'error',
-                    });
+            this.$store.dispatch("AuthenticationModule/login", { password: this.password }).catch(() => {
+                this.$toast.open({
+                    message: "Falsches Passwort",
+                    type: "error",
+                });
             });
         },
     },
@@ -46,16 +43,16 @@ export default {
 </script>
 
 <style scoped>
-div{
+div {
     color: black;
 }
-label{
+label {
     color: black;
 }
 .col-login {
     max-width: 24rem;
 }
-.vh-90{
+.vhCustom {
     min-height: 60vh;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
-    <div class="image-upload box hoverPointer">
+    <div class="image-upload box hoverPointer d-flex justify-content-center" :class="{ roundBox: round }">
         <form id="avatarform" class="h-100" action="/uploadavatar" method="post" enctype="multipart/form-data">
             <label class=" mb-1 mb-sm-0 mr-1 h-100 col-12 p-0" for="addImage">
                 <img v-if="value.imageB64" class="max-height mx-auto" :class="{ round: round }" :src="`data:image/${value.format};base64, ${value.imageB64}`" />
 
-                <div v-else class="h-100 d-flex align-items-center justify-content-center">
+                <div v-else class="h-100 d-flex align-items-center justify-content-center text-center">
                     Klicke um Bild einzufügen
                 </div>
                 <input id="addImage" @change="updateImage" name="files[]" ref="file" type="file" style="display:none;" />
@@ -63,7 +63,13 @@ img {
 }
 .round {
     border-radius: 50%;
-    height: 199px;
-    width: 198px;
+    height: 200px;
+    width: 200px;
+}
+
+.roundBox{
+    border-radius: 50%;
+    width: 210px;
+    height: 210px;
 }
 </style>

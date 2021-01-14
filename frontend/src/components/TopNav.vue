@@ -6,14 +6,13 @@
                 <i class="fas fa-bars"></i>
             </label>
             <router-link to="/">
-                <label class="logo">Logo</label>
+                LOGO
             </router-link>
             <ul>
                 <!-- maybe extract the routes from a config? -->
-                <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath == '/' }" to="/">Home</router-link></li>
-                <!-- <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath == '/shop' }" to="/shop">Shop</router-link></li> -->
-                <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath == '/aktuelles' }" to="/aktuelles">Aktuelles</router-link></li>
-                <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath == '/galerie' }" to="/galerie">Galerie</router-link></li>
+                <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath === '/' }" to="/">Home</router-link></li>
+                <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath === '/aktuelles' }" to="/aktuelles">Aktuelles</router-link></li>
+                <li><router-link @click.native="collapseNavbar()" :class="{ active: currentPath === '/galerie' }" to="/galerie">Galerie</router-link></li>
             </ul>
         </nav>
     </div>
@@ -36,22 +35,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$-navbarBackground: lighten($black, 5%);
 * {
     margin: 0;
 }
 
 nav {
-    background: darken($black, 5%);
+    background: $-navbarBackground;
     height: $navbarHeight;
     width: 100%;
     display: flex;
 
+    a.router-link-active {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
     .logo {
-        color: $red;
-        font-size: 35px;
-        padding-left: 5vw;
-        font-weight: bold;
-        cursor: pointer;
+        height: 90%;
+        margin-left: 5vw;
     }
 
     ul {
@@ -92,6 +94,7 @@ nav {
                     transform: scaleX(1.05);
                 }
             }
+
             .active::before {
                 visibility: visible;
                 transform: scaleX(1.05);
@@ -112,7 +115,7 @@ nav {
     display: none;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 850px) {
     .menu-btn {
         display: flex;
         align-items: center;
@@ -126,24 +129,23 @@ nav {
                 opacity: 0;
             }
 
-            background: lighten($black, 5%);
+            background: lighten($-navbarBackground, 5%);
             justify-content: center;
-            height: 0%;
+            height: 0;
             position: absolute;
             width: 100%;
             top: $navbarHeight;
             left: 0;
+            padding: 0;
             flex-direction: column;
             text-align: center;
             transition: all 0.5s;
             transition-property: opacity, height;
+            overflow: hidden;
 
             li {
                 margin-top: 20px;
                 position: relative;
-                a {
-                    font-size: 20px;
-                }
             }
         }
     }

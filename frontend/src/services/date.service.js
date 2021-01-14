@@ -1,4 +1,6 @@
 export const convertISODate = date => {
-    const isoDate = new Date(date);
-    return `${isoDate.getDay()}.${isoDate.getMonth()}.${isoDate.getFullYear()} um ${isoDate.getUTCHours()}:${isoDate.getUTCMinutes()} Uhr`;
+    return new Date(date)
+        .toLocaleDateString("de-DE", { year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric' })
+        .replace(",", " um")
+        .concat(" Uhr")
 }

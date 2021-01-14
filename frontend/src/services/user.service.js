@@ -6,7 +6,7 @@ export function login(data) {
 
 export function logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem("userElbdogs");
-    sessionStorage.removeItem("userElbdogs");
+    localStorage.removeItem("userlandingpage");
+    sessionStorage.removeItem("userlandingpage");
 }
 

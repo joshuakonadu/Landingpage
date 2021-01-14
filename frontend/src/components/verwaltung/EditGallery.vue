@@ -104,6 +104,7 @@ export default {
                         message: "Erfolgreich",
                         type: "success",
                     });
+                    this.resetValues();
                 })
                 .catch(() => {
                     this.resetValues();
@@ -147,7 +148,13 @@ export default {
             window.scrollTo(0, 0);
         },
         createImage() {
-            if (!this.heading || !this.image) return; /*this.$showSaveFailureOwnText("Überschrift und Bild müssen gefüllt sein"); */
+            if (!this.heading || !this.image.imageB64){
+                this.$toast.open({
+                        message: "Bitte Füllen Sie alle Felder aus.",
+                        type: "info",
+                    });
+                    return;
+                } 
 
             this.$store
                 .dispatch("user/addGalleryImage", {
@@ -162,7 +169,7 @@ export default {
                     });
                     this.resetValues();
                 })
-                .catch(err => {
+                .catch(() => {
                     this.$toast.open({
                         message: "Fehlgeschlagen",
                         type: "error",
@@ -181,6 +188,7 @@ export default {
             this.imageId = "";
             this.imageIndex = "";
             this.showDelete = false;
+            this.$forceUpdate()
         },
     },
 };

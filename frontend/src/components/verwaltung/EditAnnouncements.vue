@@ -46,9 +46,9 @@
                 <div>
                     <div class="col-12 d-flex flex-column justify-content-center mt-2">
                         <h5>{{ announcement.title }}</h5>
-                        <span class="text-muted">{{ getDate(announcement.createdAt) }}</span>
+                        <span class="timestamp">{{ getDate(announcement.createdAt) }}</span>
                     </div>
-                    <div class="row justify-content-center mt-2">
+                    <div class="row justify-content-center mt-2 mb-4">
                         <button
                             @click="updateInfo(announcement.image, announcement._id, index, announcement.title, announcement.description)"
                             class="btn btn-sm btn-outline-primary"
@@ -175,8 +175,13 @@ export default {
             window.scrollTo(0, 0);
         },
         createAnnouncement() {
-            if (!this.title || !this.image || !this.description) return; /*this.$showSaveFailureOwnText("Überschrift und Bild müssen gefüllt sein"); */
-
+            if (!this.title || !this.image.imageB64 || !this.description) {
+                this.$toast.open({
+                    message: "Bitte Füllen Sie alle Felder aus.",
+                    type: "info",
+                });
+                return;
+            }
             this.$store
                 .dispatch("user/addAnnouncement", {
                     image: this.image,
@@ -210,6 +215,7 @@ export default {
             this.announcementId = "";
             this.announcementIndex = "";
             this.showDelete = false;
+            this.$forceUpdate()
         },
     },
 };
@@ -233,8 +239,5 @@ img {
 h5 {
     height: 3rem;
     overflow: hidden;
-}
-.text-muted {
-    font-size: 0.8rem;
 }
 </style>

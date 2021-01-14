@@ -1,5 +1,5 @@
 <template>
-    <div id="gallery-slider" class="vh-100 mbC" v-if="loadFinish && slides.length > 0">
+    <div id="gallery-slider" class="vh-100" v-if="loadFinish && slides.length > 0">
         <agile
             v-if="slides.length >= 5"
             @after-change="e => (currentSlide = e.currentSlide)"
@@ -9,7 +9,7 @@
             :as-nav-for="asNavFor1"
         >
             <div class="slide" v-for="(slide, index) in slides" :key="index" :class="`slide--${index}`">
-                <img :src="slide" :alt="slide" />
+                <img :src="slide" :alt="slide" draggable="false" />
             </div>
             <template slot="caption">{{ gallery[currentSlide].title }}</template>
         </agile>
@@ -22,7 +22,7 @@
             :as-nav-for="asNavFor1"
         >
             <div class="slide" v-for="(slide, index) in slides" :key="index" :class="`slide--${index}`">
-                <img :src="slide" :alt="slide" />
+                <img :src="slide" :alt="slide" draggable="false" />
             </div>
             <template slot="caption">{{ gallery[currentSlide].title }}</template>
         </agile>
@@ -34,7 +34,7 @@
                 :class="`slide--${index}`"
                 @click="$refs.thumbnails.goTo(index), $refs.main.goTo(index)"
             >
-                <img :src="slide" />
+                <img :src="slide" draggable="false" />
             </div>
             <template slot="prevButton"><i class="fas fa-chevron-left"></i></template>
             <template slot="nextButton"><i class="fas fa-chevron-right"></i></template>
@@ -42,9 +42,6 @@
     </div>
     <div v-else-if="!loadFinish" class="vh-100">
         <loading-spinner></loading-spinner>
-    </div>
-    <div v-else-if ="slides == 0" class="vh-100">
-        <h1 class="error-msg">Keine Bilder vorhanden, fügen sie in der Verwaltung Bilder hinzu.</h1>
     </div>
     <div v-else class="vh-100">
         <h1 class="error-msg">Es ist ein Fehler aufgetreten</h1>
@@ -135,15 +132,6 @@ export default {
             margin: auto;
         }
 
-        .agile__nav-button {
-            background: transparent;
-            border: none;
-            color: #ccc;
-            cursor: pointer;
-            font-size: 24px;
-            -webkit-transition-duration: 0.3s;
-            transition-duration: 0.3s;
-        }
         .thumbnails .agile__nav-button {
             position: absolute;
             top: 50%;
@@ -151,10 +139,10 @@ export default {
             transform: translateY(-50%);
         }
         .thumbnails .agile__nav-button--prev {
-            left: -10px;
+            left: -40px;
         }
         .thumbnails .agile__nav-button--next {
-            right: -10px;
+            right: -40px;
         }
         .agile__nav-button:hover {
             color: #888;
@@ -162,8 +150,23 @@ export default {
         .agile__dot {
             margin: 0 10px;
         }
+
+        .agile__nav-button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 24px;
+            height: 600px;
+            position: absolute;
+            top: 0;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            width: 80px;
+        }
+
         .agile__dot button {
-            background-color: #eee;
+            background-color: $white;
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -176,20 +179,19 @@ export default {
             -webkit-transition-duration: 0.3s;
             transition-duration: 0.3s;
             width: 10px;
+
+            &:hover {
+                background-color: lighten($red, 30%);
+            }
         }
-        .agile__dot--current button,
-        .agile__dot:hover button {
-            background-color: #888;
+        .agile__dot--current button {
+            background-color: $red;
         }
 
         .agile__caption {
-            margin: 20px;
             text-align: center;
             font-size: 2rem;
             color: $white;
-            @media only screen and (max-width: 600px) {
-                color: transparent;
-            }
         }
 
         .slide {
@@ -206,6 +208,7 @@ export default {
         .slide--thumbniail {
             cursor: pointer;
             height: 100px;
+            width: 200px;
             padding: 0 5px;
             -webkit-transition: opacity 0.3s;
             transition: opacity 0.3s;
@@ -215,18 +218,23 @@ export default {
         }
         .slide img {
             display: block;
-            height: 480px;
+            height: 60vh;
             object-fit: contain;
             width: 90%;
-            margin-top: 5rem;
+            margin: 4rem;
             cursor: grab;
+
+            @media only screen and (max-width: 600px) {
+                height: 30vh;
+                margin: 1rem;
+                margin-top: 200px;
+                object-fit: contain;
+                width: 90%;
+            }
         }
     }
 }
-.vh-100{
+.vh-100 {
     min-height: 100vh;
-}
-.mbC{
-    margin-bottom: 7rem;
 }
 </style>

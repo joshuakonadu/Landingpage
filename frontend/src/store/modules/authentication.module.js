@@ -2,7 +2,7 @@ import * as userService from "@/services/user.service";
 import { router } from "@/router";
 import jwtdecode from "jwt-decode";
 
-const user = localStorage.getItem("userElbdogs") || sessionStorage.getItem("userElbdogs");
+const user = localStorage.getItem("userlandingpage") || sessionStorage.getItem("userlandingpage");
 const initialState = user ? { status: { loggedIn: true }, user, username: jwtdecode(user).username } : { status: {}, user: null };
 
 export default {
@@ -13,15 +13,15 @@ export default {
             return userService
                 .login(data)
                 .then(user => {
-                    try{
+                    try {
                         commit("loginSuccess", { user });
                     }
-                    catch(err){
-                        return 
+                    catch (err) {
+                        return
                     }
                 })
-                .catch((error) => {
-                    return "Fehlgeschlagen";
+                .catch(() => {
+                    throw Error("not authorized")
                 });
         },
         logout({ commit }) {
@@ -39,7 +39,7 @@ export default {
             state.status = { loggedIn: true };
             state.user = user.data;
             if (state.user) {
-                localStorage.setItem("userElbdogs", state.user);
+                localStorage.setItem("userlandingpage", state.user);
             }
             if (noRedirect) {
                 return;
@@ -50,7 +50,7 @@ export default {
             } else {
                 router.push("/admin");
                 window.location.reload()
-                
+
             }
             this._vm.$set(state, "username", jwtdecode(user.data.token).username);
         },

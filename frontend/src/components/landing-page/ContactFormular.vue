@@ -1,7 +1,7 @@
 <template>
-    <div class="container mx-auto">
+    <div id="contact-form" class="container mx-auto">
         <div class="landing-content">
-            <h1 class="section-headline">Kontaktformular</h1>
+            <h1 class="section-headline">Noch Fragen?</h1>
             <div class="row justify-content-center mt-5">
                 <div class="col-md-8">
                     <form v-on:submit.prevent="send">
@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="text-white">Email-Addresse *</label>
+                                    <label class="text-white">Email-Adresse *</label>
                                     <input name="email" v-model="email" type="email" class="form-control" required />
                                 </div>
                             </div>
@@ -27,7 +27,7 @@
                                     <input v-model="phone" name="phone" type="tel" class="form-control" />
                                 </div>
                             </div>
-                            <div class="col-lg-6 notForUser">
+                            <div class="col-lg-6 d-none">
                                 <div class="form-group">
                                     <label class="text-white">Thema</label>
                                     <input v-model="subject" name="subject" type="text" class="form-control" />
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <button type="submit" @click="send" class="self-btn selfbtn-4 btn-loading">
+                                <button type="submit" @click="send" class="self-btn btn-loading">
                                     <span>Abschicken</span>
                                 </button>
                             </div>
@@ -61,7 +61,7 @@
 
 <script>
 export default {
-    name: "Contact-Form",
+    name: "ContactFormular",
     data() {
         return {
             phone: "",
@@ -73,6 +73,13 @@ export default {
     },
     methods: {
         send() {
+            if (!this.message && !this.email && !this.name) {
+                this.$toast.open({
+                    message: "Die Relevanten Felder * müssen ausgefüllt sein.",
+                    type: "info",
+                });
+                return;
+            }
             this.$store
                 .dispatch("mainpage/sendNotification", {
                     phone: this.phone,
@@ -106,33 +113,31 @@ export default {
 };
 </script>
 
-<style scoped>
-.notForUser {
-    display: none;
+<style lang="scss" scoped>
+input,
+textarea {
+    background: $white;
 }
+
 .self-btn {
-    border: none;
-    color: inherit;
-    background: none;
+    background: transparent;
     cursor: pointer;
     font-size: 0.7rem;
     padding: 15px 10px;
-    margin-bottom: 2rem;
-    display: inline-block;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
     outline: none;
-    position: relative;
-}
-.selfbtn-4 {
     border-radius: 10px;
-    border: 3px solid #fff;
-    color: #fff;
-    overflow: hidden;
+    border: 3px solid $red;
+    color: $white;
+
+    @media (max-width: 600px) {
+        width: 100%;
+    }
 }
 .self-btn:hover {
-    background: white;
-    color: black;
+    background: #111;
+    transition: 0.2s;
 }
 </style>

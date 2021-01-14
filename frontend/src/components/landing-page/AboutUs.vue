@@ -1,12 +1,11 @@
 <template>
     <div id="about-us" v-if="aboutUs && aboutUs.image">
         <div class="landing-content">
-            <h1 class="section-headline mt-5">Über mich</h1>
             <div class="about-sec">
-                <img :src="`data:image/${aboutUs.image.format};base64, ${aboutUs.image.imageB64}`" alt="name" />
+                <img class="size" :src="`data:image/${aboutUs.image.format};base64, ${aboutUs.image.imageB64}`" alt="name" />
                 <div class="text-sec">
-                    <h4>{{ aboutUs.title }}</h4>
-                    <p>{{ aboutUs.description }}</p>
+                    <h3 class="text-break">{{ aboutUs.title }}</h3>
+                    <p class="text-break">{{ aboutUs.description }}</p>
                 </div>
             </div>
         </div>
@@ -44,7 +43,6 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin: 30px;
 
     img {
         max-width: 500px;
@@ -59,16 +57,27 @@ export default {
     .text-sec {
         display: block;
         margin-top: 20px;
-        margin-bottom: 20px;
-        text-align: center;
+
         p {
+            margin-top: 1em;
             max-width: 600px;
             word-wrap: break-word;
             white-space: pre-wrap;
-            font-size: 20px;
+            margin-bottom: 0;
         }
-        h4 {
-            font-size: 30px;
+        h3 {
+            position: relative;
+            display: inline;
+
+            &::after {
+                content: "";
+                background: $red;
+                position: absolute;
+                bottom: -0.5rem;
+                left: 0;
+                height: 5px;
+                width: 113%;
+            }
         }
     }
 }

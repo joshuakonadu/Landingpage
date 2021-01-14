@@ -7,13 +7,14 @@ import Login from "../components/Login.vue";
 import AdminOverview from "../views/AdministrationOverview.vue";
 import LandingPage from "../views/LandingPage.vue";
 import GalleryPage from "../views/GalleryPage.vue";
-import ShopPage from "../views/ShopPage.vue";
 import AnnouncementsPage from "../views/AnnouncementsPage.vue";
 import EditGallery from "../components/verwaltung/EditGallery.vue";
 import EditPartners from "../components/verwaltung/EditPartners.vue";
 import EditAboutUs from "../components/verwaltung/EditAboutUs.vue";
 import EditAnnouncements from "../components/verwaltung/EditAnnouncements.vue";
-import EditMessages from "../components/verwaltung/EditMessages.vue"
+import EditMessages from "../components/verwaltung/EditMessages.vue";
+import ImpressumPage from "@/views/ImpressumPage.vue";
+import DatenschutzPage from "@/views/DatenschutzPage.vue";
 
 Vue.use(VueRouter);
 
@@ -30,11 +31,20 @@ const routes: Array<RouteConfig> = [
                 component: GalleryPage,
                 meta: { title: "Galerie" },
             },
-            { path: "/shop", component: ShopPage, meta: { title: "Shop" } },
             {
                 path: "/aktuelles",
                 component: AnnouncementsPage,
                 meta: { title: "Aktuelles" },
+            },
+            {
+                path: "/impressum",
+                component: ImpressumPage,
+                meta: { title: "Impressum" },
+            },
+            {
+                path: "/datenschutz",
+                component: DatenschutzPage,
+                meta: { title: "Datenschutz" },
             },
         ],
     },
@@ -86,10 +96,10 @@ export const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     // redirect to login page if not logged in and trying to access a restricted page
-    const publicPages = ["login", "", "aktuelles", "galerie", "shop", "product"];
+    const publicPages = ["login", "", "aktuelles", "galerie", "shop", "product", "datenschutz", "impressum"];
     const domainpath = to.path.split("/")[1];
     const authRequired = !publicPages.includes(domainpath);
-    const loggedIn = localStorage.getItem("userElbdogs") || sessionStorage.getItem("userElbdogs");
+    const loggedIn = localStorage.getItem("userlandingpage") || sessionStorage.getItem("userlandingpage");
 
     if (authRequired && !loggedIn) {
         document.title = to.meta.title;

@@ -1,9 +1,9 @@
 <template>
     <div id="partners" v-if="partners.length">
         <div class="landing-content">
-            <h1 class="section-headline">Partner</h1>
-            <div class="images" :class="{ 'fade-partners': showFade }">
-                <div v-for="partner in partners" :key="partner.id" data-dragscroll>
+            <h1 class="section-headline">Schaut doch mal hier vorbei</h1>
+            <div class="images" :class="{ 'd-flex space-evenly flex-wrap': partners.length < 6 }">
+                <div class="" v-for="partner in partners" :key="partner.id" data-dragscroll>
                     <img @click="openPartner(partner.uri)" :src="`data:image/${partner.image.format};base64, ${partner.image.imageB64}`" :alt="partner.title" />
                     <h4>{{ partner.title }}</h4>
                 </div>
@@ -49,8 +49,14 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: auto;
     background-color: $partnerBackground;
+}
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+h1 {
+    margin-bottom: 1em;
 }
 
 .images {
@@ -60,7 +66,6 @@ export default {
     flex-wrap: nowrap;
     flex-direction: row;
     text-align: center;
-    justify-content: space-between;
     overflow-x: auto;
     cursor: grab;
 

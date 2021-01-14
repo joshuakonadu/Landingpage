@@ -18,3 +18,5 @@ new Vue({
     store,
     render: h => h(App),
 }).$mount("#app");
+
+process.env.NODE_ENV === "production" && console.log("[ATTENTION] App is running in PRODUCTION mode!");

@@ -1,19 +1,14 @@
 <template>
-    <div id="announcement" v-if="!error && announcement && announcement.title">
+    <div id="announcement" v-if="announcement.title != null && !error">
         <div class="landing-content">
-            <h1 class="section-headline">Aktuelles</h1>
             <div class="content">
-                <div class="row">
-                <div class="col-md-6">
+                <div class="text-content">
                     <h3 class="text-break">{{ announcement.title }}</h3>
-                    <p class="text-break">
-                        {{ announcement.description }}
-                    </p>
-                    <span class="timestamp mr-3">{{ getDate(announcement.createdAt) }}</span>
+                    <p class="text-break">{{ announcement.description }}</p>
+                    <span class="timestamp">{{ getDate(announcement.createdAt) }}</span>
                     <router-link to="/aktuelles">Mehr...</router-link>
                 </div>
-                <img class="col-12 col-md-6 mt-3 mt-md-0" :src="`data:image/${announcement.image.format};base64, ${announcement.image.imageB64}`" alt="Aktuelles Bild" />
-            </div>
+                <img class="size mt-5" :src="`data:image/${announcement.image.format};base64, ${announcement.image.imageB64}`" alt="Aktuelles Bild" />
             </div>
         </div>
     </div>
@@ -49,27 +44,30 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-    width: 80%;
-    margin: 20px auto;
+    width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    border-radius: 20px;
+    padding: 3vw;
+    box-shadow: 0 0 20px rgba(#222, 0.1);
+    background-color: lighten($announcementBackground, 2%);
 
     .text-content {
         margin-right: 5vw;
 
-        h3 {
-            font-size: 2.5em;
-        }
-
         p {
             margin-top: 1em;
             line-height: 1.7;
-            font-size: 1.5em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 10;
+            -webkit-box-orient: vertical;
+            white-space: pre-wrap;
         }
 
         a {
             margin-left: 20px;
-            font-size: 1.8em;
             color: $blue;
             text-decoration: none;
             float: right;
@@ -77,21 +75,16 @@ export default {
     }
     img {
         margin-left: auto;
-        width: 30vw;
-        max-width: 400px;
-        height: auto;
+        max-width: 300px;
+        max-height: 300px;
         object-fit: cover;
 
         @media only screen and (max-width: 600px) {
             display: none;
         }
     }
-
-    .timestamp {
-        color: rgba(#fff, 0.5);
-        font-size: 0.8em;
-    }
 }
+
 #announcement {
     background-color: $announcementBackground;
 }
